@@ -166,7 +166,10 @@ bool BitWriter::write(uint64_t bits, uint64_t len) {
       uint64_t idx = _pos / 64;
       uint64_t shift = _pos % 64;
       if (bits & (uint64_t(1) << i)) {
-        _bits[idx] |= uint64_t(1) << shift;
+        _bits[idx] |= (uint64_t(1) << shift);
+      }
+      else {
+        _bits[idx] &= ~(uint64_t(1) << shift);
       }
       _pos++;
     }
@@ -183,11 +186,11 @@ bool BitWriter::write(uint64_t bits, uint64_t len) {
     }
     else {
       uint64_t l = 64 - _n;
-      if (!write(l, bits)) {
+      if (!write(bits, l)) {
         return false;
       }
       bits >>= l;
-      if (!write(len - l, bits)) {
+      if (!write(bits, len - l)) {
         return false;
       }
     }
