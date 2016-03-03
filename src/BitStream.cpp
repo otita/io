@@ -122,6 +122,10 @@ bool BitReader::read(uint64_t **bits_ptr, uint64_t len) {
   return true;
 }
 
+bool BitReader::end() {
+  return _len <= _pos;
+}
+
 void BitReader::close() {
   if (_fp) {
     fclose(_fp);
@@ -207,6 +211,10 @@ bool BitWriter::write(uint64_t *bits, uint64_t len) {
     len -= 64;
   }
   return true;
+}
+
+bool BitWriter::end() {
+  return _len <= _pos;
 }
 
 void BitWriter::close() {

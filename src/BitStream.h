@@ -47,6 +47,7 @@ public:
   bool read(uint64_t *bits_ptr, uint64_t len);
   // 1 <= len
   bool read(uint64_t **bits_ptr, uint64_t len);
+  bool end();
   void close();
 private:
   uint64_t *_bits;
@@ -68,6 +69,7 @@ public:
   bool write(uint64_t bits, uint64_t len);
   // 1 <= len
   bool write(uint64_t *bits, uint64_t len);
+  bool end();
   void close();
 private:
   uint64_t *_bits;
